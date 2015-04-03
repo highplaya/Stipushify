@@ -28,14 +28,11 @@ function AppViewModel(){
 	 );
 
 	 self.infinity = ko.computed(function(){
-	 	for(var i = 0; i < self.subjects().length; i++){
-	 		console.log('missing iteration');
-	 		if(self.subjects()[i].missing() > 50){
-	 			console.log('boom');
-	 			return true;
-	 		}
-	 	}
-	 	return false;
+
+	 	return self.subjects().every(function(el){
+	 		return el.missing() > 50;
+	 	});
+
 	 });
  
 
@@ -43,82 +40,64 @@ function AppViewModel(){
 
 
     self.addSubject = function() {
-    	//self.subjects()[self.subjects().length - 1]
-        //self.subjects.push(id ,"", 5, 71);
-        //console.log(self.subjects()[self.subjects().length - 1].id + 1 )
+
         var idToUse = self.subjects()[self.subjects().length - 1].id + 1;
-        //console.log(idToUse);
+
         self.subjects.push(new Subject(idToUse ,"", 5, 71));
-        console.log(self.subjects());
-        //self.
+
     }
     
     self.removeSubject = function(s) 
     { 
     	$(function(){
-    		//console.log(s.id);
-    		//$('.table').animate({height: '0px', opacity: 0}, 500);  
 
-    		var el = '#' + s.viewId;
+	    	var el = '#' + s.viewId;
 
-    		console.log(el);
-
-    	$(el).closest('tr')
-        .children('td')
-        .animate({ padding: 0 })
-        .wrapInner('<div />')
-        .children()
-        .slideUp(function() { $(this).closest('tr').remove();     	self.subjects.remove(s); });
+	    	$(el).closest('tr')
+	        .children('td')
+	        .animate({ padding: 0 })
+	        .wrapInner('<div />')
+	        .children()
+	        .slideUp(function() { $(this).closest('tr').remove();     	self.subjects.remove(s); });
 
     	});
-
-
-
 
     }
 
     self.resetMissing = function() {
-        console.log('in resetmissing');
 
-        for(var i = 0; i<self.subjects().length; i++){
-			//console.log('subject: ' + self.subjects()[i].name() + ' | credit: ' + self.subjects()[i].credit() + ' | mark: ' + self.subjects()[i].mark())
-			self.subjects()[i].missing(0);
-		}
+		self.subjects().forEach(function(el){
+			el.missing(0);
+		})
 
     }
 
     self.calculateMissing = function(avg, credits, marks) {
-        console.log('in calculateMissing');
 
-        console.log(credits);
-
-        for(var i = 0; i<self.subjects().length; i++){
-
-
-
-        	//var thisMarks = self.subject()[i].mark * self.subject()[i].credit;
-        	var c = self.subjects()[i].credit();
-        	var m = self.subjects()[i].mark();
+		self.subjects().forEach(function(el){
+			var c = el.credit();
+        	var m = el.mark();
         	var Mark = m * c;
         	var OtherSubjectsAverage = marks - Mark;
 
         	var result = (((71 * credits) - OtherSubjectsAverage)/c)-m;
         	var f = Math.ceil(result);
 
-			self.subjects()[i].missing(f);
-		}
+			el.missing(f);
+		})
+
     }
 
 
     self.avg = ko.computed(function() {
-    	console.log(self.infinity());
+
 		var credits = 0;
 		var marks = 0;
-		for(var i = 0; i<self.subjects().length; i++){
-			//console.log('subject: ' + self.subjects()[i].name() + ' | credit: ' + self.subjects()[i].credit() + ' | mark: ' + self.subjects()[i].mark())
-			marks += parseFloat(self.subjects()[i].mark() * self.subjects()[i].credit());
-			credits += parseFloat(self.subjects()[i].credit());
-		}
+
+		self.subjects().forEach(function(el){
+			marks += parseFloat(el.mark() * el.credit());
+			credits += parseFloat(el.credit());
+		})		
 
 		var avg = marks/credits;
 
@@ -126,7 +105,7 @@ function AppViewModel(){
 			
 			self.stipuha(false);
 			self.calculateMissing(avg, credits, marks);
-		} else{
+		} else if(self.stipuha() === false){
 
 			self.stipuha(true);
 			self.resetMissing();
