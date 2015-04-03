@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Stipushify</title>
+
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="libs/animate.css">
+	<link rel="stylesheet" href="libs/custom.css">
+
+
+
+</head>
+<body>
+<div class="container">
+			<div class="row">
+
+
+				<div class="col-md-9">
+					<table class="table transp" >
+						<thead class="animated slideInDown">
+							<tr>
+								<th class="remove"></th>
+								<th>Назва</th>
+								<th>Кредити</th>
+								<th>Оцінка</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: subjects" >
+
+						<tr class="subject animated zoomIn" data-bind="attr: { id: viewId }">
+							<td class="remove">
+						<span data-bind="click: $root.removeSubject" class="del glyphicon glyphicon-remove"></span>
+							</td>
+							<td class="name">
+								<input type="text" class="form-control" placeholder="Наприклад: Декларативне програмування" data-bind="value: name">
+							</td>
+							<td class="credit"><input data-bind="value: credit" class="form-control" type="number" min="0" max="10" step=".5" value="5" size="2"></td>
+							<td class="markk"><input data-bind="value: mark" type="number" class="form-control" min="50" max="100" step="1" value="71" size="3"></td>
+
+							<td class="missing" width="10%">
+
+							<span data-bind="ifnot: $root.infinity()">
+
+								<span data-bind="if: $root.stipuha()">
+									<span class="glyphicon glyphicon-ok">    </span>
+								</span>
+
+								<span data-bind="ifnot: $root.stipuha()">
+									+<span data-bind="text: missing"></span>
+								</span>	
+							</span>
+
+							<span data-bind="if: $root.infinity()">
+								>50
+							</span>
+
+							</td>
+						</tr>
+
+
+						</tbody>
+					</table>
+				</div>
+
+
+
+
+				<div class="col-md-3">
+
+
+
+					<button data-bind="click: addSubject" type="button" class="btn addBtn-hover animated zoomIn">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Додати предмет
+					</button>
+
+					<br><br>
+
+					<div class="result transp animated zoomIn">
+					    <h1><span data-bind="text: avg().toFixed(2)"></span></h1>
+					</div>
+
+					<br>
+
+					<button data-bind="click: addSubject" type="button" class="btn addBtn-hover animated zoomIn">
+						<span class="glyphicon glyphicon-floppy-disk icons" aria-hidden="true"></span> Зберегти посилання
+					</button>					
+					
+				</div>
+			</div>
+			
+		</div>
+		<script src="libs/jquery.js"></script>
+	<script src="libs/bootstrap/js/bootstrap.js"></script>
+	<script src="libs/knockout.js"></script>
+	<script src="scripts.js"></script>
+	<script src="animate.js"></script>
+
+</body>
+</html>

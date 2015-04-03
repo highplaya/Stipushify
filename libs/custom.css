@@ -1,0 +1,93 @@
+.tansp{
+	background-color: rgba(0,0,255,0.5);
+	border: 1px solid rgba(0,0,255,1);
+}
+
+.table tbody>tr>td.remove{
+    vertical-align: middle;
+    text-align: center;
+	border:none;
+    width: 25px;
+    padding-top: 14px;
+    
+}
+
+.table tbody>tr>td.missing{
+	vertical-align: middle;
+	min-width: 15px;
+    overflow: hidden;
+
+
+
+	
+}
+
+.table tbody>tr>td.credit,.table tbody>tr>td.markk
+{
+	width: 90px;
+}
+
+.table thead>tr>th.remove{
+    border: none;
+    
+}
+
+input[type="text"], input[type="number"] {
+
+  background-color : #ECF0F1; 
+  color: #2C3E50;
+
+}
+
+.table{
+	background-color: #ECF0F1;
+	border: none;
+	padding: 23px;
+}
+
+
+.addBtn{
+	width: 100%;
+	text-align: center;
+	padding:5px;
+	background-color: #ECF0F1;
+	border: none;
+}
+
+.addBtn-hover{
+	width: 100%;
+	text-align: center;
+	padding:5px;
+	background-color: #ECF0F1;
+	border: 1px solid  #2C3E50;
+	border-radius: 0px;
+	color: #2C3E50;
+}
+
+.btn-del{
+	background: none;
+	border: 1px solid  #2C3E50;
+}
+
+body{
+	padding-top: 20px;
+	background:#ECF0F1; 
+	background-size: auto;
+	color: #2C3E50;
+
+}
+
+a{
+	display: block;
+}
+
+
+.result{
+	text-align: center;
+	padding:20px;
+	width: 100%;
+	background-color: #ECF0F1;
+	border: 1px solid #2C3E50;
+
+}
+
